@@ -344,6 +344,20 @@ def run_clipping_job(job_id, video_url):
         tb = traceback.format_exc()
         print(f"Error in job {job_id}: {e}\n{tb}")
         safe_update_job(job_id, status="error", message=str(e))
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+# --- ADD THIS CODE ---
+@app.route("/api/health")
+def health_check():
+  """
+  
+  # Health Check Endpoint for Render
+@app.route("/api/health")
+def health_check():
+    """Render.com health check endpoint"""
+    return jsonify({"status": "healthy"}), 200
 
 
 # --- API Endpoints ---
@@ -379,3 +393,4 @@ def serve_clip(filename):
 if __name__ == '__main__':
     # use 0.0.0.0 if you want external access
     app.run(debug=True, port=5000)
+
